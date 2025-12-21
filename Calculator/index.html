@@ -4,32 +4,164 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <link rel = "stylesheet" href = "Style.css">
+   <style>
+    body {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10;
+    background : rgb(43, 122, 226);
+    font-family: Arial, Helvetica, sans-serif;
+}
+#calc {justify-content: center;
+    display: grid;
+    width: 350px;
+    height: 400px;
+    gap: 8px;
+    padding : 15px;
+    border-radius: 20px;
+    grid-template-columns: 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px;
+border: 2px solid;
+background: greenyellow;
+}
+#Screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: 1/1/2/5;
+    color: black;
+}
+#Screen {
+width :100%;
+height: 100%;
+border-radius: 10px;
+background: aqua;
+text-align: right;
+padding: 0 10px;
+border : 1px solid black;
+}
+#one {
+grid-area: 2/1/3/2;
+}
+#two {
+grid-area:2/2/3/3 ;
+}
+#three {
+grid-area:2/3/3/4 ;
+}
+#four {
+grid-area:3/1/4/2 ;
+}
+#five {
+grid-area: 3/2/4/3;
+}
+#six {
+grid-area: 3/3/4/4;
+}
+#seven {
+grid-area:4/1/5/2;
+}
+#eight {
+grid-area:4/2/5/3 ;
+}
+#nine {
+grid-area:4/3/5/4 ;
+}
+#zero {
+grid-area:5/1/6/4 ;
+}
+#plus {
+grid-area: 3/4/4/5;
+}
+#minus {
+grid-area: 4/4/5/5;
+}
+#del {
+grid-area:6/1/7/3;
+}
+#eq {
+grid-area: 6/3/7/4;
+}
+#div {
+grid-area:6/4/7/5 ;
+}
+#mul {
+grid-area:5/4/6/5 ;
+}
+#clear {
+grid-area: 2/4/3/5;
+}
+button{
+    width: 100%;
+    height : 100%;
+    font-size: large;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.operation button {
+    background-color: red;
+    font-weight: bold;
+}
+.Numberkeys button:hover {
+    background-color: cadetblue;
+}
+.operation button:hover {
+    background-color: crimson;
+}
+button:active {
+    transform: scale(0.95);
+}
+
+   </style>
 </head>
 
 <body >
     <h1 style = "text-align: center;" >Calculator</h1>
     <hr>
-   <div id = "calc"><div id = "Screen"> <p id = "display"></p> </div>
-   <div class = "Numberkeys" id = "one"><button> 1</button> </div>
-    <div class = "Numberkeys" id = "two"><button> 2</button> </div>
-    <div class = "Numberkeys" id = "three"> <button>3</button> </div>
-    <div class = "Numberkeys" id = "four"> <button>4 </button></div>
-    <div class = "Numberkeys" id = "five"><button>5 </div>
-    <div class = "Numberkeys" id = "six"><button> 6 </button></div>
-   <div class = "Numberkeys" id = "seven"> <button>7 </button></div>
-    <div class = "Numberkeys" id = "eight"><button>8 </button></div>
-   <div class = "Numberkeys" id = "nine"> <button>9 </button></div>
-    <div class = "Numberkeys" id = "zero"><button>0 </button></div> 
-    <div class = "operation" id = "plus"><button> + </button></div> 
-    <div class = "operation" id = "minus"><button>- </button></div> 
-    <div class = "operation" id = "div"><button> / </button></div> 
-    <div class = "operation" id = "mul"> <button>* </button></div> 
-    <div class = "operation" id = "clear"><button>AC </button></div> 
-    <div class = "operation" id = "del"><button> Del </button></div> 
-    <div class = "operation" id = "eq"><button> = </button></div> 
+   <div id = "calc"><input type = "text" id = "Screen" readonly> 
+   <div class = "Numberkeys" id = "one"><button onclick="appendToScreen('1')"> 1</button> </div>
+    <div class = "Numberkeys" id = "two"><button onclick="appendToScreen('2')"> 2</button> </div>
+    <div class = "Numberkeys" id = "three"> <button onclick="appendToScreen('3')">3</button> </div>
+    <div class = "Numberkeys" id = "four"> <button onclick="appendToScreen('4')">4 </button></div>
+    <div class = "Numberkeys" id = "five"><button onclick="appendToScreen('5')">5 </div>
+    <div class = "Numberkeys" id = "six"><button onclick="appendToScreen('6')"> 6 </button></div>
+   <div class = "Numberkeys" id = "seven"> <button onclick="appendToScreen('7')">7 </button></div>
+    <div class = "Numberkeys" id = "eight"><button onclick="appendToScreen('8')">8 </button></div>
+   <div class = "Numberkeys" id = "nine"> <button onclick="appendToScreen('9')">9 </button></div>
+    <div class = "Numberkeys" id = "zero"><button onclick="appendToScreen('0')">0 </button></div> 
+    <div class = "operation" id = "plus"><button onclick="appendToScreen('+')"> + </button></div> 
+    <div class = "operation" id = "minus"><button onclick="appendToScreen('-')">- </button></div> 
+    <div class = "operation" id = "div"><button onclick="appendToScreen('/')"> / </button></div> 
+    <div class = "operation" id = "mul"> <button onclick="appendToScreen('*')">*</button></div> 
+    <div class = "operation" id = "clear"><button onclick="clearScreen()">AC </button></div> 
+    <div class = "operation" id = "del"><button onclick="deleteLast()"> Del </button></div> 
+    <div class = "operation" id = "eq"><button onclick="calculate()"> = </button></div> 
     </div>
+    <script>
+        function appendToScreen(value) {
+            document.getElementById('Screen').value += value;
+        }
 
-    
+        function clearScreen() {
+            document.getElementById('Screen').value = '';
+        }
+
+        function deleteLast() {
+            let screen = document.getElementById('Screen');
+            screen.value = screen.value.slice(0, -1);
+        }
+
+        function calculate() {
+            let screen = document.getElementById('Screen');
+            try {
+                screen.value = eval(screen.value);
+            } catch (error) {
+                screen.value = "Error";
+            }
+        }
+    </script>
 </body>
 </html>
